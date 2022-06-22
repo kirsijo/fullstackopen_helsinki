@@ -1,0 +1,28 @@
+browser->server: HTTP GET ps://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: spa.js
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server 
+end note
+
+note over browser:
+user types new note in the input field
+user clicks submit button
+browser executes eventhandler
+rerenders the note list on the page
+sends the new note to the server
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over browser:
+POST request contains content and the timestamp as JSON data
+end note 
+note over server:
+Server parses the JSON data according to the Content-type header
+end note
+server-->browser: 201 created
