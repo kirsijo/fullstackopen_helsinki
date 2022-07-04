@@ -1,8 +1,7 @@
 const Header = (props) => {
-  const course = "Half Stack application development";
   return (
     <>
-      <h1>{course}</h1>
+      <h1>{props.course}</h1>
     </>
   );
 };
