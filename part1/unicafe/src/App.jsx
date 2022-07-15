@@ -2,7 +2,7 @@ import { useState } from "react";
 import Statistics from "./Statistics.jsx";
 import Button from "./Button.jsx";
 
-const App = () => {
+const App = (props) => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
@@ -26,7 +26,7 @@ const App = () => {
       <Button handleClick={goodClickHandler} name="good" />
       <Button handleClick={neutralClickHandler} name="neutral" />
       <Button handleClick={badClickHandler} name="bad" />
-      <Statistics />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </>
   );
 };
