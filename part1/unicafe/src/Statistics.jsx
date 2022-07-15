@@ -7,7 +7,10 @@ const Statistics = (props) => {
   };
 
   const average = () => {
-    return (props.good + props.bad + props.neutral / 3).toFixed(1);
+    return (
+      (props.good - props.bad) /
+      (props.good + props.neutral + props.bad)
+    ).toFixed(1);
   };
 
   const positive = () => {
@@ -16,6 +19,14 @@ const Statistics = (props) => {
     return `${percentagePositive.toFixed(1)}%`;
   };
 
+  if (props.all.length === 0) {
+    return (
+      <div>
+        <h2>Statistics</h2>
+        <p>No feedback given</p>
+      </div>
+    );
+  }
   return (
     <>
       <h2>Statistics</h2>
