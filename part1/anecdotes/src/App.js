@@ -12,6 +12,16 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState({
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+  });
 
   const getRndInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -20,13 +30,31 @@ const App = () => {
   const selectAnecdote = () => {
     const currentAnecdote = getRndInt(0, anecdotes.length - 1);
     setSelected(currentAnecdote);
-    console.log(currentAnecdote);
   };
+
+  const addVote = () => {
+    const copy = { ...votes };
+    copy[selected] += 1;
+    setVotes(copy);
+    console.log(selected, votes);
+  };
+
+  let votesArr = Object.values(votes);
+  let max = Math.max(...votesArr);
+  let whereIsMax = votesArr.indexOf(max);
 
   return (
     <>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
-      <button onClick={selectAnecdote}>next anecdote</button>
+      <div>This anecdote has {votes[selected]} votes</div>
+      <button onClick={addVote}>Vote</button>
+      <button onClick={selectAnecdote}>Next anecdote</button>
+      <h1>
+        Anecdote with the most votes is: <br />
+        <i>"{anecdotes[whereIsMax]}"</i>
+        <p>This anecdote has {max} votes</p>
+      </h1>
     </>
   );
 };
