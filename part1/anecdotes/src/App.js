@@ -50,11 +50,9 @@ const App = () => {
       <div>This anecdote has {votes[selected]} votes</div>
       <button onClick={addVote}>Vote</button>
       <button onClick={selectAnecdote}>Next anecdote</button>
-      <h1>
-        Anecdote with the most votes is: <br />
-        <i>"{anecdotes[whereIsMax]}"</i>
-        <p>This anecdote has {max} votes</p>
-      </h1>
+      <h1>Anecdote with the most votes is:</h1>
+      <p>"{anecdotes[whereIsMax]}"</p>
+      <p>This anecdote has {max} votes</p>
     </>
   );
 };
