@@ -18,11 +18,13 @@ const App = (props) => {
     setSearchData(e.target.value);
   };
 
-  const countryFilter = data.filter((country) => {
+  let countryFilter = data.filter((country) => {
     return country.name.common.toLowerCase().includes(searchData.toLowerCase());
   });
 
-  console.log(countryFilter);
+  const countryButtonHandler = (e) => {
+    setSearchData(e.target.value);
+  };
 
   if (countryFilter.length > 10) {
     return (
@@ -45,7 +47,12 @@ const App = (props) => {
         </form>
         <ul>
           {countryFilter.map((c) => (
-            <li key={c.name.common}>{c.name.common}</li>
+            <li key={c.name.common}>
+              {c.name.common}
+              <button value={c.name.common} onClick={countryButtonHandler}>
+                Show
+              </button>
+            </li>
           ))}
         </ul>
       </>
