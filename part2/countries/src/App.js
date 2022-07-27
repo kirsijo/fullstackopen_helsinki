@@ -18,7 +18,7 @@ const App = (props) => {
     setSearchData(e.target.value);
   };
 
-  let countryFilter = data.filter((country) => {
+  const countryFilter = data.filter((country) => {
     return country.name.common.toLowerCase().includes(searchData.toLowerCase());
   });
 

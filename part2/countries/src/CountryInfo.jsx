@@ -1,5 +1,6 @@
+import WeatherInfo from "./WeatherInfo";
+
 const CountryInfo = (props) => {
-  console.log(props);
   return (
     <div>
       <h2>{props.name}</h2>
@@ -13,6 +14,7 @@ const CountryInfo = (props) => {
         ))}
       </ul>
       <img src={props.flag} alt={props.name}></img>
+      <WeatherInfo capital={props.capital} />
     </div>
   );
 };
