@@ -3,6 +3,7 @@ import PersonList from "./PersonList";
 import Filter from "./Filter";
 import PersonForm from "./PersonForm";
 import axios from "axios";
+import numberService from "./numbers";
 
 const App = (props) => {
   const [persons, setPersons] = useState([]);
@@ -10,13 +11,11 @@ const App = (props) => {
   const [newNumber, setNewNumber] = useState("");
   const [searchValue, setSearch] = useState("");
 
-  const gettingPeople = () => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
+  useEffect(() => {
+    numberService.getAll().then((initialList) => {
+      setPersons(initialList);
     });
-  };
-
-  useEffect(gettingPeople, []);
+  }, []);
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -26,13 +25,17 @@ const App = (props) => {
     setNewNumber(event.target.value);
   };
 
-  const addNumber = (event) => {
+  const addNumber = () => {
     const personObject = {
       name: newName,
       number: newNumber,
       id: persons.length + 1,
     };
-    setPersons(persons.concat(personObject));
+    numberService.create(personObject).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson));
+      setNewName("");
+      setNewNumber("");
+    });
   };
 
   const checkListed = (event) => {
