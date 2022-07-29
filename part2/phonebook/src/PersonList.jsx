@@ -4,7 +4,12 @@ const PersonList = (props) => {
   return (
     <div>
       {props.people.map((name) => (
-        <Number key={name.id} name={name.name} number={name.number} />
+        <div key={name.id}>
+          <Number name={name.name} number={name.number} />
+          <button value={name.id} onClick={props.deleteNumber}>
+            delete
+          </button>
+        </div>
       ))}
     </div>
   );

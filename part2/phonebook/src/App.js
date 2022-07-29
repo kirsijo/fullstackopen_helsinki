@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import PersonList from "./PersonList";
 import Filter from "./Filter";
 import PersonForm from "./PersonForm";
-import axios from "axios";
 import numberService from "./numbers";
 
 const App = (props) => {
@@ -38,6 +37,18 @@ const App = (props) => {
     });
   };
 
+  const deleteNumber = (event) => {
+    event.preventDefault();
+    const id = event.target.value;
+    const nameFinder = persons.filter((i) => i.id === Number(id));
+    const nameValues = Object.values(nameFinder)[0];
+    if (window.confirm(`Are you sure you want to remove ${nameValues.name}?`)) {
+      numberService.deleteNum(id);
+      const delPerson = persons.filter((n) => n.id !== Number(id));
+      setPersons(delPerson);
+    }
+  };
+
   const checkListed = (event) => {
     event.preventDefault();
     let result = persons.filter((person) => person.name === newName);
@@ -69,7 +80,7 @@ const App = (props) => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <PersonList people={searchFilter} />
+      <PersonList people={searchFilter} deleteNumber={deleteNumber} />
     </>
   );
 };
