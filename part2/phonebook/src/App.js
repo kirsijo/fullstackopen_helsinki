@@ -55,7 +55,22 @@ const App = (props) => {
     if (result.length === 0) {
       addNumber();
     } else {
-      alert(`${newName} is already on the list`);
+      if (
+        window.confirm(
+          `${newName} already exist on the list. Would you like to replace the number?`
+        )
+      ) {
+        const changedNumber = { name: newName, number: newNumber };
+        numberService
+          .update(result[0].id, changedNumber)
+          .then((returnedNumber) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== result[0].id ? person : returnedNumber
+              )
+            );
+          });
+      }
     }
   };
 
