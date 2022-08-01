@@ -3,12 +3,15 @@ import PersonList from "./PersonList";
 import Filter from "./Filter";
 import PersonForm from "./PersonForm";
 import numberService from "./numbers";
+import Notification from "./Notification";
+import "./index.css";
 
 const App = (props) => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchValue, setSearch] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
     numberService.getAll().then((initialList) => {
@@ -32,6 +35,10 @@ const App = (props) => {
     };
     numberService.create(personObject).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson));
+      setSuccessMessage(`${newName} was succesfully added to the Phonebook`);
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000);
       setNewName("");
       setNewNumber("");
     });
@@ -69,6 +76,10 @@ const App = (props) => {
                 person.id !== result[0].id ? person : returnedNumber
               )
             );
+            setSuccessMessage(`${newName} was succesfully updated`);
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
           });
       }
     }
@@ -85,6 +96,7 @@ const App = (props) => {
   return (
     <>
       <h2>Phonebook</h2>
+      <Notification message={successMessage} />
       <Filter searchValue={searchValue} search={search} />
       <h3>Add a new number</h3>
       <PersonForm
