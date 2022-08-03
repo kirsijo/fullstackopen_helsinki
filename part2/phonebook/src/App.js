@@ -92,7 +92,7 @@ const App = (props) => {
           .catch((error) => {
             console.error("an error occurred");
             setSuccessMessage(
-              `${error.message}. An error occurred. The number was already removed from the server`
+              `${error.message}. An error occurred. ${newName} was already removed from the server`
             );
             setTimeout(() => {
               setSuccessMessage(null);
