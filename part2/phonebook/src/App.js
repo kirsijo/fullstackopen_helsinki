@@ -33,15 +33,23 @@ const App = (props) => {
       number: newNumber,
       id: persons.length + 1,
     };
-    numberService.create(personObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setSuccessMessage(`${newName} was succesfully added to the Phonebook`);
-      setTimeout(() => {
-        setSuccessMessage(null);
-      }, 5000);
-      setNewName("");
-      setNewNumber("");
-    });
+    numberService
+      .create(personObject)
+      .catch((error) => {
+        setSuccessMessage("An error occurred");
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
+      })
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setSuccessMessage(`${newName} was succesfully added to the Phonebook`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
+        setNewName("");
+        setNewNumber("");
+      });
   };
 
   const deleteNumber = (event) => {
@@ -64,7 +72,7 @@ const App = (props) => {
     } else {
       if (
         window.confirm(
-          `${newName} already exist on the list. Would you like to replace the number?`
+          `${newName} already exists on the list. Would you like to replace the number?`
         )
       ) {
         const changedNumber = { name: newName, number: newNumber };
@@ -77,6 +85,15 @@ const App = (props) => {
               )
             );
             setSuccessMessage(`${newName} was succesfully updated`);
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            console.error("an error occurred");
+            setSuccessMessage(
+              `${error.message}. An error occurred. The number was already removed from the server`
+            );
             setTimeout(() => {
               setSuccessMessage(null);
             }, 5000);
