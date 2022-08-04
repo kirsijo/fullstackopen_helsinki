@@ -35,12 +35,6 @@ const App = (props) => {
     };
     numberService
       .create(personObject)
-      .catch((error) => {
-        setSuccessMessage("An error occurred");
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000);
-      })
       .then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
         setSuccessMessage(`${newName} was succesfully added to the Phonebook`);
@@ -49,6 +43,12 @@ const App = (props) => {
         }, 5000);
         setNewName("");
         setNewNumber("");
+      })
+      .catch((error) => {
+        setSuccessMessage("An error occurred");
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
       });
   };
 
